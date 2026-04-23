@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Store {
+  id              String   @id @default(cuid())
+  name            String   @unique
+  logo            String?
+  rating          Float    @default(0)
+  reviewsCount    Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  offers          Offer[]
+
+  @@index([name])
+  @@map("stores")
+}
+
+model Product {
+  id              String   @id @default(cuid())
+  name            String
+  brand           String
+  category        String
+  image           String
+  gallery         String[]
+  specs           Json
+  description     String
+  rating          Float    @default(0)
+  reviewsCount    Int      @default(0)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  offers          Offer[]
+  priceHistory    PriceHistoryPoint[]
+
+  @@index([category])
+  @@index([brand])
+  @@index([name])
+  @@map("products")
+}
+
+model Offer {
+  id                  String   @id @default(cuid())
+  productId           String
+  storeId             String
+  price               Float
+  originalPrice       Float?
+  shipping            Float    @default(0)
+  shippingTimeDays    Int      @default(0)
+  freeShipping        Boolean  @default(false)
+  condition           String   @default("new")
+  url                 String
+  inStock             Boolean  @default(true)
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  product             Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  store               Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([storeId])
+  @@index([price])
+  @@index([condition])
+  @@index([freeShipping])
+  @@index([shippingTimeDays])
+  @@map("offers")
+}
+
+model PriceHistoryPoint {
+  id          String   @id @default(cuid())
+  productId   String
+  date        DateTime
+  price       Float
+  createdAt   DateTime @default(now())
+
+  product     Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@index([date])
+  @@map("price_history")
+}
