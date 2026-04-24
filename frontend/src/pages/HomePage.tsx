@@ -4,7 +4,7 @@ import { TrendingUp, Zap, Monitor, Smartphone, HardDrive, Cpu, Search, ShieldChe
 import { useNavigate } from 'react-router-dom';
 
 const categories = [
-  { label: 'Placas de Vídeo', icon: Zap, query: 'RTX 4060' },
+  { label: 'Placas de Vídeo', icon: Zap, query: 'Placa de Vídeo' },
   { label: 'Smartphones', icon: Smartphone, query: 'iPhone 15' },
   { label: 'Armazenamento', icon: HardDrive, query: 'SSD 1TB' },
   { label: 'Monitores', icon: Monitor, query: 'Monitor 4K' },

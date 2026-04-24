@@ -81,6 +81,7 @@ export default function SearchPage() {
                       offer={offer}
                       productName={product.name}
                       productImage={product.image}
+                      productId={product.id}
                     />
                   ))
                 )}
