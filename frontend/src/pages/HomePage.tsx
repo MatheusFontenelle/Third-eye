@@ -31,7 +31,7 @@ export default function HomePage() {
             <div className="bg-primary-600 rounded-lg p-1.5">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900 tracking-tight">CompareTech</span>
+<span className="text-xl font-bold text-gray-900 tracking-tight">Third Eye</span>
           </div>
         </div>
       </header>
@@ -126,7 +126,7 @@ export default function HomePage() {
             <div className="bg-primary-600 rounded-lg p-1">
               <TrendingUp className="w-4 h-4 text-white" />
             </div>
-            <span className="text-lg font-bold text-gray-900">CompareTech</span>
+<span className="text-lg font-bold text-gray-900">Third Eye</span>
           </div>
           <p className="text-xs text-gray-400">
             Comparador de preços de eletrônicos. Dados simulados para demonstração.

@@ -45,7 +45,7 @@ export default function ProductPage() {
             <div className="bg-primary-600 rounded-lg p-1.5">
               <TrendingUp className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-gray-900 tracking-tight hidden sm:inline">CompareTech</span>
+<span className="text-xl font-bold text-gray-900 tracking-tight hidden sm:inline">Third Eye</span>
           </Link>
         </div>
       </header>

@@ -1,4 +1,5 @@
 import { Product, SearchResult } from '@/types';
+import { generateProductUrl } from '@/utils/storeUrls';
 
 const today = new Date().toISOString().split('T')[0];
 const monthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
@@ -43,6 +44,7 @@ function generateRxProducts(): Product[] {
 
   return RX_MODELS.map((model) => {
     const basePrice = 500 + model.tier * 350 + Math.floor(Math.random() * 200);
+    const productName = `Placa de Vídeo ${model.name}`;
 
     const stores = [
       { name: 'Kabum', rating: 4.5, reviews: 52000, priceMul: 1.0, shipping: 0, days: 5 },
@@ -68,17 +70,17 @@ function generateRxProducts(): Product[] {
         shippingTimeDays: s.days,
         freeShipping: s.shipping === 0,
         condition: 'new' as const,
-        url: s.name === 'Amazon' ? 'https://www.amazon.com.br/' : 'https://www.google.com/',
+        url: generateProductUrl(s.name, model.id, productName),
         inStock: true,
       };
     });
 
     return {
       id: model.id,
-      name: `Placa de Vídeo ${model.name}`,
+      name: productName,
       brand: 'AMD',
       category: 'Placas de Vídeo',
-      image: `https://via.placeholder.com/400x300?text=${encodeURIComponent(model.name.replace(/\s+/g, '+'))}`,
+      image: 'https://http2.mlstatic.com/D_NQ_NP_649338-MLA74781074109_022024-O.webp',
       specs: {
         'Memória': model.vram,
         'Interface': 'PCIe 4.0 x16',
@@ -105,11 +107,11 @@ export const mockProducts: Product[] = [
     name: 'Placa de Vídeo NVIDIA GeForce RTX 4060 8GB GDDR6',
     brand: 'NVIDIA',
     category: 'Placas de Vídeo',
-    image: 'https://via.placeholder.com/400x300?text=RTX+4060',
+    image: 'https://http2.mlstatic.com/D_NQ_NP_973786-MLU74198718092_012024-O.webp',
     gallery: [
-      'https://via.placeholder.com/800x600?text=RTX+4060+Front',
-      'https://via.placeholder.com/800x600?text=RTX+4060+Back',
-      'https://via.placeholder.com/800x600?text=RTX+4060+Ports',
+      'https://http2.mlstatic.com/D_NQ_NP_973786-MLU74198718092_012024-O.webp',
+      'https://http2.mlstatic.com/D_NQ_NP_787475-MLU74198718098_012024-O.webp',
+      'https://http2.mlstatic.com/D_NQ_NP_902156-MLU74198718094_012024-O.webp',
     ],
     specs: {
       'Memória': '8GB GDDR6',
@@ -142,7 +144,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 5,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.kabum.com.br/',
+        url: generateProductUrl('Kabum', 'rtx-4060', 'Placa de Vídeo NVIDIA GeForce RTX 4060 8GB GDDR6'),
         inStock: true,
       },
       {
@@ -156,7 +158,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 4,
         freeShipping: false,
         condition: 'new',
-        url: 'https://www.terabyteshop.com.br/',
+        url: generateProductUrl('Terabyte Shop', 'rtx-4060', 'Placa de Vídeo NVIDIA GeForce RTX 4060 8GB GDDR6'),
         inStock: true,
       },
       {
@@ -171,7 +173,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 3,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.pichau.com.br/',
+        url: generateProductUrl('Pichau', 'rtx-4060', 'Placa de Vídeo NVIDIA GeForce RTX 4060 8GB GDDR6'),
         inStock: true,
       },
       {
@@ -185,7 +187,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 2,
         freeShipping: false,
         condition: 'new',
-        url: 'https://www.mercadolivre.com.br/',
+        url: generateProductUrl('Mercado Livre', 'rtx-4060', 'Placa de Vídeo NVIDIA GeForce RTX 4060 8GB GDDR6'),
         inStock: true,
       },
       {
@@ -199,7 +201,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 14,
         freeShipping: true,
         condition: 'new',
-        url: 'https://pt.aliexpress.com/?spm=a2g0o.home.logo.1.31c83f40FV285O',
+        url: generateProductUrl('AliExpress', 'rtx-4060', 'Placa de Vídeo NVIDIA GeForce RTX 4060 8GB GDDR6'),
         inStock: true,
       },
       {
@@ -214,7 +216,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 2,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.amazon.com.br/',
+        url: generateProductUrl('Amazon', 'rtx-4060', 'Placa de Vídeo NVIDIA GeForce RTX 4060 8GB GDDR6'),
         inStock: true,
       },
     ],
@@ -224,10 +226,10 @@ export const mockProducts: Product[] = [
     name: 'Apple iPhone 15 128GB',
     brand: 'Apple',
     category: 'Smartphones',
-    image: 'https://via.placeholder.com/400x300?text=iPhone+15',
+    image: 'https://http2.mlstatic.com/D_NQ_NP_779849-MLA71783090124_042023-O.webp',
     gallery: [
-      'https://via.placeholder.com/800x600?text=iPhone+15+Front',
-      'https://via.placeholder.com/800x600?text=iPhone+15+Back',
+      'https://http2.mlstatic.com/D_NQ_NP_779849-MLA71783090124_042023-O.webp',
+      'https://http2.mlstatic.com/D_NQ_NP_975026-MLA71782870177_042023-O.webp',
     ],
     specs: {
       'Tela': '6.1" OLED Super Retina XDR',
@@ -259,7 +261,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 7,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.mercadolivre.com.br/',
+        url: generateProductUrl('Mercado Livre', 'iphone-15', 'Apple iPhone 15 128GB'),
         inStock: true,
       },
       {
@@ -273,7 +275,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 3,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.pichau.com.br/',
+        url: generateProductUrl('Pichau', 'iphone-15', 'Apple iPhone 15 128GB'),
         inStock: true,
       },
       {
@@ -287,7 +289,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 2,
         freeShipping: false,
         condition: 'new',
-        url: 'https://www.kabum.com.br/',
+        url: generateProductUrl('Kabum', 'iphone-15', 'Apple iPhone 15 128GB'),
         inStock: true,
       },
       {
@@ -301,7 +303,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 12,
         freeShipping: true,
         condition: 'new',
-        url: 'https://pt.aliexpress.com/?spm=a2g0o.home.logo.1.31c83f40FV285O',
+        url: generateProductUrl('AliExpress', 'iphone-15', 'Apple iPhone 15 128GB'),
         inStock: true,
       },
     ],
@@ -311,7 +313,7 @@ export const mockProducts: Product[] = [
     name: 'SSD 1TB NVMe M.2 Kingston KC3000',
     brand: 'Kingston',
     category: 'Armazenamento',
-    image: 'https://via.placeholder.com/400x300?text=SSD+1TB',
+    image: 'https://http2.mlstatic.com/D_NQ_NP_629338-MLA74781074109_022024-O.webp',
     specs: {
       'Capacidade': '1TB',
       'Interface': 'PCIe 4.0 NVMe',
@@ -326,8 +328,6 @@ export const mockProducts: Product[] = [
     reviewsCount: 3420,
     priceHistory: [
       { date: monthAgo, price: 699 },
-      { date: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], price: 599 },
-      { date: today, price: 549 },
     ],
     offers: [
       {
@@ -342,7 +342,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 4,
         freeShipping: false,
         condition: 'new',
-        url: 'https://www.terabyteshop.com.br/',
+        url: generateProductUrl('Terabyte Shop', 'ssd-1tb-nvme', 'SSD 1TB NVMe M.2 Kingston KC3000'),
         inStock: true,
       },
       {
@@ -356,7 +356,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 5,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.kabum.com.br/',
+        url: generateProductUrl('Kabum', 'ssd-1tb-nvme', 'SSD 1TB NVMe M.2 Kingston KC3000'),
         inStock: true,
       },
       {
@@ -370,7 +370,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 15,
         freeShipping: true,
         condition: 'new',
-        url: 'https://pt.aliexpress.com/?spm=a2g0o.home.logo.1.31c83f40FV285O',
+        url: generateProductUrl('AliExpress', 'ssd-1tb-nvme', 'SSD 1TB NVMe M.2 Kingston KC3000'),
         inStock: true,
       },
       {
@@ -384,7 +384,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 3,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.mercadolivre.com.br/',
+        url: generateProductUrl('Mercado Livre', 'ssd-1tb-nvme', 'SSD 1TB NVMe M.2 Kingston KC3000'),
         inStock: true,
       },
     ],
@@ -394,7 +394,7 @@ export const mockProducts: Product[] = [
     name: 'Processador AMD Ryzen 7 7800X3D',
     brand: 'AMD',
     category: 'Processadores',
-    image: 'https://via.placeholder.com/400x300?text=Ryzen+7+7800X3D',
+    image: 'https://http2.mlstatic.com/D_NQ_NP_739338-MLA74781074109_022024-O.webp',
     specs: {
       'Núcleos': '8',
       'Threads': '16',
@@ -426,7 +426,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 3,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.pichau.com.br/',
+        url: generateProductUrl('Pichau', 'ryzen-7-7800x3d', 'Processador AMD Ryzen 7 7800X3D'),
         inStock: true,
       },
       {
@@ -440,7 +440,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 4,
         freeShipping: false,
         condition: 'new',
-        url: 'https://www.terabyteshop.com.br/',
+        url: generateProductUrl('Terabyte Shop', 'ryzen-7-7800x3d', 'Processador AMD Ryzen 7 7800X3D'),
         inStock: true,
       },
       {
@@ -454,7 +454,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 5,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.mercadolivre.com.br/',
+        url: generateProductUrl('Mercado Livre', 'ryzen-7-7800x3d', 'Processador AMD Ryzen 7 7800X3D'),
         inStock: true,
       },
       {
@@ -468,7 +468,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 2,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.kabum.com.br/',
+        url: generateProductUrl('Kabum', 'ryzen-7-7800x3d', 'Processador AMD Ryzen 7 7800X3D'),
         inStock: true,
       },
     ],
@@ -478,7 +478,7 @@ export const mockProducts: Product[] = [
     name: 'Monitor 27" 4K UHD LG UltraFine',
     brand: 'LG',
     category: 'Monitores',
-    image: 'https://via.placeholder.com/400x300?text=Monitor+27+4K',
+    image: 'https://http2.mlstatic.com/D_NQ_NP_839338-MLA74781074109_022024-O.webp',
     specs: {
       'Tamanho': '27 polegadas',
       'Resolução': '3840 x 2160 (4K UHD)',
@@ -509,7 +509,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 7,
         freeShipping: false,
         condition: 'new',
-        url: 'https://www.kabum.com.br/',
+        url: generateProductUrl('Kabum', 'monitor-27-4k', 'Monitor 27" 4K UHD LG UltraFine'),
         inStock: true,
       },
       {
@@ -523,7 +523,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 8,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.pichau.com.br/',
+        url: generateProductUrl('Pichau', 'monitor-27-4k', 'Monitor 27" 4K UHD LG UltraFine'),
         inStock: true,
       },
       {
@@ -537,7 +537,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 18,
         freeShipping: true,
         condition: 'new',
-        url: 'https://pt.aliexpress.com/?spm=a2g0o.home.logo.1.31c83f40FV285O',
+        url: generateProductUrl('AliExpress', 'monitor-27-4k', 'Monitor 27" 4K UHD LG UltraFine'),
         inStock: true,
       },
     ],
@@ -547,7 +547,7 @@ export const mockProducts: Product[] = [
     name: 'MacBook Air 13" M3 8GB RAM 256GB SSD',
     brand: 'Apple',
     category: 'Notebooks',
-    image: 'https://via.placeholder.com/400x300?text=MacBook+Air+M3',
+    image: 'https://http2.mlstatic.com/D_NQ_NP_939338-MLA74781074109_022024-O.webp',
     specs: {
       'Processador': 'Apple M3',
       'RAM': '8GB Unified Memory',
@@ -578,7 +578,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 4,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.mercadolivre.com.br/',
+        url: generateProductUrl('Mercado Livre', 'macbook-air-m3', 'MacBook Air 13" M3 8GB RAM 256GB SSD'),
         inStock: true,
       },
       {
@@ -592,7 +592,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 3,
         freeShipping: true,
         condition: 'new',
-        url: 'https://www.pichau.com.br/',
+        url: generateProductUrl('Pichau', 'macbook-air-m3', 'MacBook Air 13" M3 8GB RAM 256GB SSD'),
         inStock: true,
       },
       {
@@ -606,7 +606,7 @@ export const mockProducts: Product[] = [
         shippingTimeDays: 5,
         freeShipping: false,
         condition: 'new',
-        url: 'https://www.kabum.com.br/',
+        url: generateProductUrl('Kabum', 'macbook-air-m3', 'MacBook Air 13" M3 8GB RAM 256GB SSD'),
         inStock: true,
       },
     ],
