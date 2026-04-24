@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsNumber, IsBoolean, IsArray, IsEnum, Min, Max } from 'class-validator';
+import { IsOptional, IsString, IsNumber, IsBoolean, IsArray, IsEnum, Min, Max, MaxLength } from 'class-validator';
 import { Transform, Type } from 'class-transformer';
 import { ApiPropertyOptional } from '@nestjs/swagger';
 
@@ -13,6 +13,7 @@ export class SearchProductsDto {
   @ApiPropertyOptional({ description: 'Search query', default: '' })
   @IsOptional()
   @IsString()
+  @MaxLength(100)
   q?: string = '';
 
   @ApiPropertyOptional({ description: 'Minimum price filter' })

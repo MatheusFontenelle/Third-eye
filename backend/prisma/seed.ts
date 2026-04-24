@@ -22,17 +22,15 @@ const BRANDS = [
 ];
 
 const STORE_DATA = [
-  { name: 'TechWorld', logo: 'https://via.placeholder.com/64?text=TW', rating: 4.8, reviewsCount: 12450 },
-  { name: 'MegaStore', logo: 'https://via.placeholder.com/64?text=MS', rating: 4.5, reviewsCount: 8930 },
-  { name: 'FastBuy', logo: 'https://via.placeholder.com/64?text=FB', rating: 4.2, reviewsCount: 5670 },
-  { name: 'ShopNow', logo: 'https://via.placeholder.com/64?text=SN', rating: 4.6, reviewsCount: 10200 },
-  { name: 'DigitalMart', logo: 'https://via.placeholder.com/64?text=DM', rating: 4.3, reviewsCount: 7400 },
-  { name: 'ElectroHub', logo: 'https://via.placeholder.com/64?text=EH', rating: 4.7, reviewsCount: 15600 },
-  { name: 'BestDeals', logo: 'https://via.placeholder.com/64?text=BD', rating: 4.1, reviewsCount: 4200 },
-  { name: 'PrimeTech', logo: 'https://via.placeholder.com/64?text=PT', rating: 4.9, reviewsCount: 23100 },
+  { name: 'Pichau', logo: 'https://via.placeholder.com/64?text=Pichau', rating: 4.6, reviewsCount: 28000 },
+  { name: 'Kabum', logo: 'https://via.placeholder.com/64?text=Kabum', rating: 4.5, reviewsCount: 52000 },
+  { name: 'Terabyte Shop', logo: 'https://via.placeholder.com/64?text=TB', rating: 4.8, reviewsCount: 31000 },
+  { name: 'AliExpress', logo: 'https://via.placeholder.com/64?text=AliEx', rating: 4.2, reviewsCount: 100000 },
+  { name: 'Mercado Livre', logo: 'https://via.placeholder.com/64?text=ML', rating: 4.7, reviewsCount: 200000 },
+  { name: 'Amazon', logo: 'https://via.placeholder.com/64?text=Amazon', rating: 4.8, reviewsCount: 500000 },
 ];
 
-const CONDITIONS = ['new', 'used', 'refurbished'] as const;
+const CONDITIONS = ['new', 'used', 'refurbished'];
 
 function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;

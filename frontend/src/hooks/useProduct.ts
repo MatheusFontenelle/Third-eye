@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Product } from '@/types';
-import { getProduct } from '@/api/mockApi';
+import { getProduct } from '@/api/client';
 
 interface UseProductReturn {
   product: Product | null;

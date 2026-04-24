@@ -1,13 +1,14 @@
 import { useParams, Link } from 'react-router-dom';
 import { TrendingUp, ArrowLeft, Truck, Clock, ExternalLink, Package, Star, TrendingDown } from 'lucide-react';
 import { useProduct } from '@/hooks/useProduct';
+import { safeUrl } from '@/utils/validateUrl';
 import RatingBadge from '@/components/RatingBadge';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import LoadingState from '@/components/LoadingState';
 import ErrorState from '@/components/ErrorState';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 export default function ProductPage() {
   const { id } = useParams<{ id: string }>();
@@ -29,7 +30,10 @@ export default function ProductPage() {
     </div>
   );
 
-  const images = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
+  const images = useMemo(() => {
+    const raw = product.gallery && product.gallery.length > 0 ? product.gallery : [product.image];
+    return raw.map((url) => safeUrl(url, '')).filter(Boolean);
+  }, [product.gallery, product.image]);
   const bestOffer = product.offers.reduce((best, o) => (o.price < best.price ? o : best), product.offers[0]);
 
   return (
@@ -63,7 +67,7 @@ export default function ProductPage() {
               <div className="w-full lg:w-[420px] shrink-0">
                 <div className="aspect-square bg-gray-50 rounded-2xl overflow-hidden mb-4 border border-gray-100">
                   <img
-                    src={images[selectedImage]}
+                    src={images[selectedImage] || ''}
                     alt={product.name}
                     className="w-full h-full object-cover"
                   />
@@ -79,7 +83,7 @@ export default function ProductPage() {
                           selectedImage === idx ? 'border-primary-500 ring-2 ring-primary-500/20' : 'border-gray-200 hover:border-gray-300',
                         ].join(' ')}
                       >
-                        <img src={img} alt={`${product.name} ${idx + 1}`} className="w-full h-full object-cover" />
+                        <img src={safeUrl(img, '')} alt={`${product.name} ${idx + 1}`} className="w-full h-full object-cover" />
                       </button>
                     ))}
                   </div>
@@ -139,7 +143,10 @@ export default function ProductPage() {
                       <Button
                         size="lg"
                         rightIcon={<ExternalLink className="w-4 h-4" />}
-                        onClick={() => window.open(bestOffer.url, '_blank', 'noopener,noreferrer')}
+                        onClick={() => {
+                          const url = safeUrl(bestOffer.url, '');
+                          if (url) window.open(url, '_blank', 'noopener,noreferrer');
+                        }}
                       >
                         Ver oferta
                       </Button>
@@ -258,7 +265,10 @@ export default function ProductPage() {
                         variant="ghost"
                         size="sm"
                         rightIcon={<ExternalLink className="w-3 h-3" />}
-                        onClick={() => window.open(offer.url, '_blank', 'noopener,noreferrer')}
+                        onClick={() => {
+                          const url = safeUrl(offer.url, '');
+                          if (url) window.open(url, '_blank', 'noopener,noreferrer');
+                        }}
                       >
                         Ver
                       </Button>

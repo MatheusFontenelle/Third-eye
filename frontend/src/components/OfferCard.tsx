@@ -1,17 +1,20 @@
 import { Offer } from '@/types';
+import { safeUrl } from '@/utils/validateUrl';
 import RatingBadge from './RatingBadge';
 import Badge from './ui/Badge';
 import Button from './ui/Button';
 import Card from './ui/Card';
+import { Link } from 'react-router-dom';
 import { Truck, Clock, ExternalLink, Package, Tag } from 'lucide-react';
 
 interface OfferCardProps {
   offer: Offer;
   productName: string;
   productImage: string;
+  productId: string;
 }
 
-export default function OfferCard({ offer, productName, productImage }: OfferCardProps) {
+export default function OfferCard({ offer, productName, productImage, productId }: OfferCardProps) {
   const discount = offer.originalPrice
     ? Math.round(((offer.originalPrice - offer.price) / offer.originalPrice) * 100)
     : 0;
@@ -20,9 +23,9 @@ export default function OfferCard({ offer, productName, productImage }: OfferCar
     <Card hover className="flex flex-col sm:flex-row gap-4">
       {/* Image */}
       <div className="shrink-0 mx-auto sm:mx-0">
-        <div className="relative">
+        <Link to={`/product/${productId}`} className="block relative">
           <img
-            src={productImage}
+            src={safeUrl(productImage, '')}
             alt={productName}
             className="w-32 h-32 sm:w-36 sm:h-36 object-cover rounded-xl bg-gray-100"
             loading="lazy"
@@ -33,14 +36,16 @@ export default function OfferCard({ offer, productName, productImage }: OfferCar
               -{discount}%
             </Badge>
           )}
-        </div>
+        </Link>
       </div>
 
       {/* Content */}
       <div className="flex-1 min-w-0 flex flex-col gap-2">
-        <h3 className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2 leading-snug">
-          {productName}
-        </h3>
+        <Link to={`/product/${productId}`}>
+          <h3 className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2 leading-snug hover:text-primary-700 transition-colors">
+            {productName}
+          </h3>
+        </Link>
 
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-xs sm:text-sm font-medium text-gray-700">{offer.store}</span>
@@ -87,7 +92,10 @@ export default function OfferCard({ offer, productName, productImage }: OfferCar
           <Button
             size="md"
             rightIcon={<ExternalLink className="w-3.5 h-3.5" />}
-            onClick={() => window.open(offer.url, '_blank', 'noopener,noreferrer')}
+            onClick={() => {
+              const url = safeUrl(offer.url, '');
+              if (url) window.open(url, '_blank', 'noopener,noreferrer');
+            }}
           >
             Ver oferta
           </Button>
@@ -96,4 +104,3 @@ export default function OfferCard({ offer, productName, productImage }: OfferCar
     </Card>
   );
 }
-

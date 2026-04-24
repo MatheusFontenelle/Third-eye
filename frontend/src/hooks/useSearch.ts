@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { SearchResult, SearchFilters, SortOption } from '@/types';
-import { searchProducts } from '@/api/mockApi';
+import { searchProducts } from '@/api/client';
 
 interface UseSearchReturn {
   results: SearchResult | null;
