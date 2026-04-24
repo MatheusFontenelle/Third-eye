@@ -96,6 +96,27 @@ function generateSpecs(category: string): Record<string, string> {
   return baseSpecs;
 }
 
+function generateProductUrl(storeName: string, _productId: string, productName: string): string {
+  const query = encodeURIComponent(productName);
+
+  switch (storeName) {
+    case 'Kabum':
+      return `https://www.kabum.com.br/busca?q=${query}`;
+    case 'Pichau':
+      return `https://www.pichau.com.br/search?q=${query}`;
+    case 'Terabyte Shop':
+      return `https://www.terabyteshop.com.br/busca?busca=${query}`;
+    case 'Mercado Livre':
+      return `https://www.mercadolivre.com.br/busca?q=${query}`;
+    case 'AliExpress':
+      return `https://pt.aliexpress.com/wholesale?SearchText=${query}`;
+    case 'Amazon':
+      return `https://www.amazon.com.br/s?k=${query}`;
+    default:
+      return `https://www.google.com/search?q=${query}`;
+  }
+}
+
 function generateDescription(name: string, category: string, brand: string): string {
   return `The ${name} by ${brand} is a premium ${category.toLowerCase()} designed for discerning users. 
 Featuring cutting-edge technology, exceptional build quality, and industry-leading performance.
@@ -186,7 +207,7 @@ async function main() {
           shippingTimeDays: randomInt(1, 14),
           freeShipping: shipping === 0,
           condition: randomChoice(CONDITIONS),
-          url: `https://example.com/product/${product.id}/offer/${store.name.toLowerCase()}`,
+          url: generateProductUrl(store.name, product.id, product.name),
           inStock: Math.random() > 0.1,
         },
       });
