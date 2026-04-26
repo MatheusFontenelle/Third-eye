@@ -30,6 +30,11 @@ export async function searchProducts(
     return { ...p, offers };
   });
 
+  // Filter products by brand
+  if (filters.brands.length > 0) {
+    products = products.filter((p) => filters.brands.includes(p.brand));
+  }
+
   // Only keep products that have at least one offer after filtering
   products = products.filter((p) => p.offers.length > 0);
 
@@ -84,4 +89,3 @@ export async function getProduct(id: string): Promise<Product | null> {
   const product = mockGetProduct(id);
   return product ?? null;
 }
-
