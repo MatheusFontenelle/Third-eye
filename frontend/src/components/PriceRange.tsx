@@ -19,12 +19,16 @@ export default function PriceRange({ min, max, onChange }: PriceRangeProps) {
     setLocalMax(max !== undefined ? String(max) : '');
   }, [max]);
 
-  function handleBlur() {
-    onChange({
-      min: localMin ? Number(localMin) : undefined,
-      max: localMax ? Number(localMax) : undefined,
-    });
-  }
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onChange({
+        min: localMin ? Number(localMin) : undefined,
+        max: localMax ? Number(localMax) : undefined,
+      });
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [localMin, localMax, onChange]);
 
   return (
     <div className="space-y-3">
@@ -38,7 +42,6 @@ export default function PriceRange({ min, max, onChange }: PriceRangeProps) {
             placeholder="Min"
             value={localMin}
             onChange={(e) => setLocalMin(e.target.value)}
-            onBlur={handleBlur}
             className="pl-8 text-sm"
           />
         </div>
@@ -51,7 +54,6 @@ export default function PriceRange({ min, max, onChange }: PriceRangeProps) {
             placeholder="Max"
             value={localMax}
             onChange={(e) => setLocalMax(e.target.value)}
-            onBlur={handleBlur}
             className="pl-8 text-sm"
           />
         </div>

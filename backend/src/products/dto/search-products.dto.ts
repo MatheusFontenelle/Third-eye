@@ -30,6 +30,17 @@ export class SearchProductsDto {
   @Min(0)
   maxPrice?: number;
 
+  @ApiPropertyOptional({ description: 'Filter by brands (accepts CSV or repeated)', type: [String] })
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  @Transform(({ value }) => {
+    if (Array.isArray(value)) return value;
+    if (typeof value === 'string') return value.split(',').map((s) => s.trim());
+    return [];
+  })
+  brands?: string[];
+
   @ApiPropertyOptional({ description: 'Filter by stores (accepts CSV or repeated)', type: [String] })
   @IsOptional()
   @IsArray()

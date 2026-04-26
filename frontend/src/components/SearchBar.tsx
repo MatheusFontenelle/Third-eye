@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Search } from 'lucide-react';
 import Input from './ui/Input';
@@ -13,6 +13,10 @@ export default function SearchBar({ variant = 'compact', initialValue = '' }: Se
   const [query, setQuery] = useState(initialValue);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
+  useEffect(() => {
+    setQuery(initialValue);
+  }, [initialValue]);
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();

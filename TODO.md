@@ -1,20 +1,16 @@
-# TODO - Correção de Redirecionamento de Produtos
+# Fix Search and Filter System
 
-## Problema
-O site não está direcionando para os links certos dos produtos. A página `/product/:id` existe mas não há links acessíveis para ela nos resultados de busca.
+## Issues
+1. Filters and sort not synchronized with URL params
+2. SearchBar doesn't update when URL query changes
+3. Backend missing brands filter support
+4. PriceRange triggers premature updates
 
-## Plano de Correção
-
-### Passos
-1. [x] Atualizar `OfferCard.tsx` para receber `productId` e adicionar links para a página do produto
-2. [x] Atualizar `SearchPage.tsx` para passar `productId` para cada `OfferCard`
-3. [x] Adicionar Amazon Brasil como loja nos dados (backend seed e frontend mock)
-4. [x] Adicionar 30 modelos AMD Radeon RX aos dados mock (RX 580 a RX 9070 XT)
-5. [ ] Testar navegação clicando no nome/imagem do produto
-
-## Arquivos Editados
-- `frontend/src/components/OfferCard.tsx`
-- `frontend/src/pages/SearchPage.tsx`
-- `backend/prisma/seed.ts`
-- `frontend/src/data/mock.ts`
+## Steps
+- [x] Step 1: Update `useSearch.ts` to read/write filters and sort from/to URL params
+- [x] Step 2: Fix `SearchBar.tsx` to sync internal state with `initialValue` prop changes
+- [x] Step 3: Improve `PriceRange.tsx` to avoid premature filter updates
+- [x] Step 4: Add `brands` filter to backend DTO (`search-products.dto.ts`)
+- [x] Step 5: Add brand filtering logic to backend service (`products.service.ts`)
+- [x] Step 6: Test and verify all changes work correctly
 

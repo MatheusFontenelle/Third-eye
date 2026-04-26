@@ -13,6 +13,7 @@ export class ProductsService {
       q = '',
       minPrice,
       maxPrice,
+      brands,
       stores,
       conditions,
       maxShippingDays,
@@ -54,6 +55,9 @@ export class ProductsService {
         { category: { contains: query, mode: 'insensitive' } },
         { description: { contains: query, mode: 'insensitive' } },
       ];
+    }
+    if (brands && brands.length > 0) {
+      productWhere.brand = { in: brands };
     }
 
     // Fetch products with filtered offers
