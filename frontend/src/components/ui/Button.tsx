@@ -12,9 +12,9 @@ const variantStyles = {
   primary:
     'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800 shadow-sm hover:shadow-md',
   secondary:
-    'bg-white text-gray-700 border border-gray-200 hover:border-gray-300 hover:bg-gray-50 active:bg-gray-100 shadow-sm',
+    'bg-white dark:bg-slate-700 text-gray-700 dark:text-slate-200 border border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500 hover:bg-gray-50 dark:hover:bg-slate-600 active:bg-gray-100 dark:active:bg-slate-500 shadow-sm',
   ghost:
-    'bg-transparent text-gray-600 hover:text-gray-900 hover:bg-gray-100 active:bg-gray-200',
+    'bg-transparent text-gray-600 dark:text-slate-300 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-100 dark:hover:bg-slate-700 active:bg-gray-200 dark:active:bg-slate-600',
   danger:
     'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 shadow-sm',
 };
@@ -39,7 +39,7 @@ export default function Button({
     <button
       className={[
         'inline-flex items-center justify-center gap-2 font-medium transition-all duration-200',
-        'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500',
+        'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 dark:focus:ring-offset-slate-900',
         'disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none',
         variantStyles[variant],
         sizeStyles[size],

@@ -29,7 +29,7 @@ function CustomCheckbox({
           'w-[18px] h-[18px]',
           checked
             ? 'bg-primary-600 border-primary-600'
-            : 'border-gray-300 bg-white group-hover:border-gray-400',
+            : 'border-gray-300 dark:border-slate-500 bg-white dark:bg-slate-700 group-hover:border-gray-400',
         ].join(' ')}
       >
         {checked && (
@@ -39,7 +39,7 @@ function CustomCheckbox({
         )}
       </div>
       <input type="checkbox" checked={checked} onChange={onChange} className="sr-only" />
-      <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors select-none">{label}</span>
+      <span className="text-sm text-gray-600 dark:text-slate-400 group-hover:text-gray-900 dark:text-slate-100 transition-colors select-none">{label}</span>
     </label>
   );
 }
@@ -78,8 +78,8 @@ export default function Filters({ filters, onChange }: FiltersProps) {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <SlidersHorizontal className="w-4 h-4 text-gray-500" />
-          <h3 className="text-sm font-bold text-gray-900 uppercase tracking-wide">Filtros</h3>
+          <SlidersHorizontal className="w-4 h-4 text-gray-500 dark:text-slate-400" />
+          <h3 className="text-sm font-bold text-gray-900 dark:text-slate-100 uppercase tracking-wide">Filtros</h3>
         </div>
         {hasFilters && (
           <Button variant="ghost" size="sm" onClick={handleClear} leftIcon={<FilterX className="w-3.5 h-3.5" />}>
@@ -95,7 +95,7 @@ export default function Filters({ filters, onChange }: FiltersProps) {
       />
 
       <div className="space-y-2.5">
-        <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Marca</h4>
+        <h4 className="text-xs font-bold text-gray-900 dark:text-slate-100 uppercase tracking-wider">Marca</h4>
         <div className="space-y-1 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
           {brands.map((brand) => (
             <CustomCheckbox
@@ -109,7 +109,7 @@ export default function Filters({ filters, onChange }: FiltersProps) {
       </div>
 
       <div className="space-y-2.5">
-        <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Loja</h4>
+        <h4 className="text-xs font-bold text-gray-900 dark:text-slate-100 uppercase tracking-wider">Loja</h4>
         <div className="space-y-1 max-h-48 overflow-y-auto pr-1 custom-scrollbar">
           {stores.map((store) => (
             <CustomCheckbox
@@ -123,7 +123,7 @@ export default function Filters({ filters, onChange }: FiltersProps) {
       </div>
 
       <div className="space-y-2.5">
-        <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Condição</h4>
+        <h4 className="text-xs font-bold text-gray-900 dark:text-slate-100 uppercase tracking-wider">Condição</h4>
         <div className="space-y-1">
           {[
             { value: 'new' as const, label: 'Novo' },
@@ -141,7 +141,7 @@ export default function Filters({ filters, onChange }: FiltersProps) {
       </div>
 
       <div className="space-y-2.5">
-        <h4 className="text-xs font-bold text-gray-900 uppercase tracking-wider">Entrega</h4>
+        <h4 className="text-xs font-bold text-gray-900 dark:text-slate-100 uppercase tracking-wider">Entrega</h4>
         <div className="space-y-1">
           <CustomCheckbox
             checked={filters.freeShippingOnly}
@@ -150,7 +150,7 @@ export default function Filters({ filters, onChange }: FiltersProps) {
           />
         </div>
         <div className="pt-2">
-          <label className="text-xs text-gray-500 mb-1.5 block font-medium">Prazo máximo: <span className="text-gray-700">{filters.maxShippingDays ?? 15} dias</span></label>
+          <label className="text-xs text-gray-500 dark:text-slate-400 mb-1.5 block font-medium">Prazo máximo: <span className="text-gray-700 dark:text-slate-300">{filters.maxShippingDays ?? 15} dias</span></label>
           <input
             type="range"
             min={1}
@@ -162,9 +162,9 @@ export default function Filters({ filters, onChange }: FiltersProps) {
                 maxShippingDays: Number(e.target.value) === 15 ? undefined : Number(e.target.value),
               })
             }
-            className="w-full accent-primary-600 h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+            className="w-full accent-primary-600 h-1.5 bg-gray-200 dark:bg-slate-600 rounded-lg appearance-none cursor-pointer"
           />
-          <div className="flex justify-between text-[10px] text-gray-400 mt-1 font-medium">
+          <div className="flex justify-between text-[10px] text-gray-400 dark:text-slate-500 mt-1 font-medium">
             <span>1 dia</span>
             <span>15 dias</span>
           </div>
@@ -179,10 +179,10 @@ export default function Filters({ filters, onChange }: FiltersProps) {
       <div className="lg:hidden mb-4">
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="w-full flex items-center justify-between bg-white border border-gray-200 rounded-xl px-4 py-3 text-sm font-semibold text-gray-900 shadow-card"
+          className="w-full flex items-center justify-between bg-white dark:bg-slate-700 border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-3 text-sm font-semibold text-gray-900 dark:text-slate-100 shadow-card"
         >
           <span className="flex items-center gap-2">
-            <SlidersHorizontal className="w-4 h-4 text-gray-500" />
+            <SlidersHorizontal className="w-4 h-4 text-gray-500 dark:text-slate-400" />
             Filtros
             {hasFilters && (
               <span className="bg-primary-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
@@ -190,7 +190,7 @@ export default function Filters({ filters, onChange }: FiltersProps) {
               </span>
             )}
           </span>
-          {mobileOpen ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+          {mobileOpen ? <ChevronUp className="w-4 h-4 text-gray-400 dark:text-slate-500" /> : <ChevronDown className="w-4 h-4 text-gray-400 dark:text-slate-500" />}
         </button>
         {mobileOpen && (
           <div className="mt-2">

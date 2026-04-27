@@ -14,7 +14,7 @@ export default function ErrorState({
   return (
     <Card className="py-12 text-center" hover={false}>
       <div className="bg-red-50 rounded-2xl p-4 mb-5 inline-flex">
-        <AlertTriangle className="w-8 h-8 text-red-500" />
+        <AlertTriangle className="w-8 h-8 text-red-500 dark:text-red-400" />
       </div>
       <h3 className="text-lg font-bold text-gray-900 mb-2">Algo deu errado</h3>
       <p className="text-sm text-gray-500 max-w-sm mx-auto mb-6">{message}</p>

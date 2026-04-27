@@ -23,7 +23,7 @@ export default function Card({
   return (
     <div
       className={[
-        'bg-white border border-gray-100 rounded-2xl shadow-card',
+        'bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700 rounded-2xl shadow-card dark:shadow-none',
         paddingMap[padding],
         hover && 'transition-all duration-200 hover:shadow-card-hover hover:-translate-y-0.5',
         className,
