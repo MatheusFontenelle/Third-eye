@@ -16,10 +16,10 @@ export default function Input({
   ...props
 }: InputProps) {
   const inputClasses = [
-    'w-full bg-white border rounded-lg text-sm text-gray-900 placeholder-gray-400',
+    'w-full bg-white dark:bg-slate-800 border rounded-lg text-sm text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500',
     'focus:outline-none focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500',
     'transition-all duration-200',
-    error ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-200 hover:border-gray-300',
+    error ? 'border-red-300 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500',
     icon ? 'pl-10 pr-4 py-2.5' : 'px-4 py-2.5',
     className,
   ].join(' ');
@@ -27,13 +27,13 @@ export default function Input({
   return (
     <div className={fullWidth ? 'w-full' : ''}>
       {label && (
-        <label className="block text-xs font-medium text-gray-700 mb-1.5">
+        <label className="block text-xs font-medium text-gray-700 dark:text-slate-300 mb-1.5">
           {label}
         </label>
       )}
       <div className="relative">
         {icon && (
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 pointer-events-none">
             {icon}
           </div>
         )}

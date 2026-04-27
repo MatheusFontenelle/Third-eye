@@ -5,13 +5,45 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --bg: #f9fafb;
+    --text: #111827;
+    --card: #ffffff;
+    --border: #f3f4f6;
+    --muted: #6b7280;
+    --link: #059669;
+    --input-bg: #ffffff;
+    --input-border: #e5e7eb;
+    --hover: #f3f4f6;
+  }
+
+  html.dark {
+    --bg: #0f172a;
+    --text: #f1f5f9;
+    --card: #1e293b;
+    --border: #334155;
+    --muted: #94a3b8;
+    --link: #34d399;
+    --input-bg: #1e293b;
+    --input-border: #475569;
+    --hover: #334155;
+  }
+
   html {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
   body {
-    @apply bg-gray-50 text-gray-900 antialiased;
+    background-color: var(--bg);
+    color: var(--text);
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  a {
+    color: var(--link);
+    transition: color 0.2s;
   }
 }
 
@@ -37,5 +69,12 @@
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #d1d5db;
+}
+
+html.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #475569;
+}
+html.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #64748b;
 }
 

@@ -8,6 +8,7 @@ import Button from '@/components/ui/Button';
 import Card from '@/components/ui/Card';
 import LoadingState from '@/components/LoadingState';
 import ErrorState from '@/components/ErrorState';
+import ThemeToggle from '@/components/ThemeToggle';
 import { useState, useMemo } from 'react';
 
 export default function ProductPage() {
@@ -16,14 +17,14 @@ export default function ProductPage() {
   const [selectedImage, setSelectedImage] = useState(0);
 
   if (loading) return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-gray-50 dark:bg-[var(--bg)] pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <LoadingState message="Carregando produto..." count={2} />
       </div>
     </div>
   );
   if (error || !product) return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-gray-50 dark:bg-[var(--bg)] pt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <ErrorState message={error || 'Produto não encontrado.'} />
       </div>
@@ -37,9 +38,9 @@ export default function ProductPage() {
   const bestOffer = product.offers.reduce((best, o) => (o.price < best.price ? o : best), product.offers[0]);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-[var(--bg)]">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur border-b border-gray-100 sticky top-0 z-20">
+      <header className="bg-white/80 backdrop-blur border-b border-gray-100 dark:border-slate-700 sticky top-0 z-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center gap-4">
           <Link to="/" className="flex items-center gap-2 shrink-0">
             <div className="bg-primary-600 rounded-lg p-1.5">
@@ -47,6 +48,7 @@ export default function ProductPage() {
             </div>
 <span className="text-xl font-bold text-gray-900 tracking-tight hidden sm:inline">Third Eye</span>
           </Link>
+          <ThemeToggle />
         </div>
       </header>
 
@@ -65,7 +67,7 @@ export default function ProductPage() {
             <div className="flex flex-col lg:flex-row gap-8">
               {/* Gallery */}
               <div className="w-full lg:w-[420px] shrink-0">
-                <div className="aspect-square bg-gray-50 rounded-2xl overflow-hidden mb-4 border border-gray-100">
+                <div className="aspect-square bg-gray-50 dark:bg-slate-700 rounded-2xl overflow-hidden mb-4 border border-gray-100 dark:border-slate-700">
                   <img
                     src={images[selectedImage] || ''}
                     alt={product.name}
@@ -80,7 +82,7 @@ export default function ProductPage() {
                         onClick={() => setSelectedImage(idx)}
                         className={[
                           'w-18 h-18 rounded-xl overflow-hidden border-2 shrink-0 transition-all',
-                          selectedImage === idx ? 'border-primary-500 ring-2 ring-primary-500/20' : 'border-gray-200 hover:border-gray-300',
+                          selectedImage === idx ? 'border-primary-500 ring-2 ring-primary-500/20' : 'border-gray-200 dark:border-slate-500 hover:border-gray-300',
                         ].join(' ')}
                       >
                         <img src={safeUrl(img, '')} alt={`${product.name} ${idx + 1}`} className="w-full h-full object-cover" />
@@ -97,21 +99,21 @@ export default function ProductPage() {
                     <Badge variant="price" size="sm" className="mb-3">
                       {product.category}
                     </Badge>
-                    <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-3 tracking-tight leading-tight">
+                    <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-slate-100 mb-3 tracking-tight leading-tight">
                       {product.name}
                     </h1>
                     <div className="flex items-center gap-4 flex-wrap">
                       <RatingBadge rating={product.rating} reviewsCount={product.reviewsCount} size="md" />
-                      <span className="text-sm font-medium text-gray-400">{product.brand}</span>
+                      <span className="text-sm font-medium text-gray-400 dark:text-slate-500">{product.brand}</span>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-sm text-gray-500 leading-relaxed mb-6">{product.description}</p>
+                <p className="text-sm text-gray-500 dark:text-slate-400 leading-relaxed mb-6">{product.description}</p>
 
                 {/* Best offer highlight */}
                 {bestOffer && (
-                  <div className="bg-gradient-to-br from-primary-50 to-emerald-50/50 border border-primary-100 rounded-2xl p-5 mb-6">
+                  <div className="bg-gradient-to-br from-primary-50 to-emerald-50/50 border border-primary-100 dark:border-primary-800 rounded-2xl p-5 mb-6">
                     <div className="flex items-center gap-2 mb-2">
                       <TrendingDown className="w-4 h-4 text-primary-600" />
                       <p className="text-xs font-bold text-primary-700 uppercase tracking-wider">Melhor preço encontrado</p>
@@ -121,21 +123,21 @@ export default function ProductPage() {
                         <p className="text-3xl font-extrabold text-primary-700 tracking-tight">
                           R$ {bestOffer.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                         </p>
-                        <div className="flex items-center gap-4 mt-2 text-xs text-gray-600">
+                        <div className="flex items-center gap-4 mt-2 text-xs text-gray-600 dark:text-slate-400">
                           <span className="flex items-center gap-1.5 font-medium">
-                            <Truck className="w-3.5 h-3.5 text-gray-400" />
+                            <Truck className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500" />
                             {bestOffer.freeShipping ? (
-                              <span className="text-emerald-600">Frete grátis</span>
+                              <span className="text-emerald-600 dark:text-emerald-400">Frete grátis</span>
                             ) : (
                               `Frete R$ ${bestOffer.shipping.toFixed(2)}`
                             )}
                           </span>
                           <span className="flex items-center gap-1.5 font-medium">
-                            <Clock className="w-3.5 h-3.5 text-gray-400" />
+                            <Clock className="w-3.5 h-3.5 text-gray-400 dark:text-slate-500" />
                             {bestOffer.shippingTimeDays} dia{bestOffer.shippingTimeDays > 1 ? 's' : ''}
                           </span>
                           <span className="flex items-center gap-1.5 font-medium">
-                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                            <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 dark:text-amber-300" />
                             {bestOffer.store}
                           </span>
                         </div>
@@ -156,12 +158,12 @@ export default function ProductPage() {
 
                 {/* Specs */}
                 <div>
-                  <h2 className="text-sm font-bold text-gray-900 mb-3 uppercase tracking-wider">Especificações principais</h2>
+                  <h2 className="text-sm font-bold text-gray-900 dark:text-slate-100 mb-3 uppercase tracking-wider">Especificações principais</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {Object.entries(product.specs).map(([key, value]) => (
-                      <div key={key} className="flex justify-between bg-gray-50 rounded-xl px-4 py-2.5 border border-gray-100">
-                        <span className="text-xs font-medium text-gray-400">{key}</span>
-                        <span className="text-xs font-semibold text-gray-900 text-right">{value}</span>
+                      <div key={key} className="flex justify-between bg-gray-50 dark:bg-slate-700 rounded-xl px-4 py-2.5 border border-gray-100 dark:border-slate-700">
+                        <span className="text-xs font-medium text-gray-400 dark:text-slate-500">{key}</span>
+                        <span className="text-xs font-semibold text-gray-900 dark:text-slate-100 text-right">{value}</span>
                       </div>
                     ))}
                   </div>
@@ -174,7 +176,7 @@ export default function ProductPage() {
         {/* Price history */}
         {product.priceHistory.length > 0 && (
           <Card className="mb-6" padding="lg">
-            <h2 className="text-base font-bold text-gray-900 mb-5 uppercase tracking-wider">Histórico de preço</h2>
+            <h2 className="text-base font-bold text-gray-900 dark:text-slate-100 mb-5 uppercase tracking-wider">Histórico de preço</h2>
             <div className="flex items-end gap-3 h-44">
               {product.priceHistory.map((point, idx) => {
                 const min = Math.min(...product.priceHistory.map((p) => p.price));
@@ -183,7 +185,7 @@ export default function ProductPage() {
                 const heightPercent = ((point.price - min) / range) * 50 + 25;
                 return (
                   <div key={idx} className="flex-1 flex flex-col items-center gap-2">
-                    <span className="text-[11px] font-semibold text-gray-700">
+                    <span className="text-[11px] font-semibold text-gray-700 dark:text-slate-300">
                       R$ {point.price.toLocaleString('pt-BR')}
                     </span>
                     <div
@@ -206,12 +208,12 @@ export default function ProductPage() {
 
         {/* Offers table */}
         <Card padding="none" className="overflow-hidden">
-          <div className="px-5 sm:px-8 py-5 border-b border-gray-100">
-            <h2 className="text-base font-bold text-gray-900 uppercase tracking-wider">Tabela de ofertas</h2>
+          <div className="px-5 sm:px-8 py-5 border-b border-gray-100 dark:border-slate-700">
+            <h2 className="text-base font-bold text-gray-900 dark:text-slate-100 uppercase tracking-wider">Tabela de ofertas</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-gray-50/80 text-gray-500">
+              <thead className="bg-gray-50/80 dark:bg-slate-700/80 text-gray-500 dark:text-slate-400">
                 <tr>
                   <th className="text-left font-semibold text-xs uppercase tracking-wider px-5 sm:px-8 py-3.5">Loja</th>
                   <th className="text-left font-semibold text-xs uppercase tracking-wider px-5 sm:px-8 py-3.5">Condição</th>
@@ -224,8 +226,8 @@ export default function ProductPage() {
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {product.offers.map((offer) => (
-                  <tr key={offer.id} className="hover:bg-gray-50/60 transition-colors">
-                    <td className="px-5 sm:px-8 py-3.5 font-semibold text-gray-900">{offer.store}</td>
+                  <tr key={offer.id} className="hover:bg-gray-50 dark:hover:bg-slate-700/60 transition-colors">
+                    <td className="px-5 sm:px-8 py-3.5 font-semibold text-gray-900 dark:text-slate-100">{offer.store}</td>
                     <td className="px-5 sm:px-8 py-3.5">
                       <Badge
                         variant={
@@ -251,12 +253,12 @@ export default function ProductPage() {
                     <td className="px-5 sm:px-8 py-3.5 text-gray-600 font-medium text-xs">{offer.shippingTimeDays} dias</td>
                     <td className="px-5 sm:px-8 py-3.5">
                       <div className="flex items-center gap-1">
-                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400 dark:text-amber-300" />
                         <span className="text-gray-900 font-semibold text-xs">{offer.storeRating}</span>
                       </div>
                     </td>
                     <td className="px-5 sm:px-8 py-3.5 text-right">
-                      <span className="font-bold text-gray-900">
+                      <span className="font-bold text-gray-900 dark:text-slate-100">
                         R$ {offer.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
                       </span>
                     </td>

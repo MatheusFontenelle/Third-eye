@@ -27,7 +27,7 @@ export default function OfferCard({ offer, productName, productImage, productId 
           <img
             src={safeUrl(productImage, '')}
             alt={productName}
-            className="w-32 h-32 sm:w-36 sm:h-36 object-cover rounded-xl bg-gray-100"
+            className="w-32 h-32 sm:w-36 sm:h-36 object-cover rounded-xl bg-gray-100 dark:bg-slate-700"
             loading="lazy"
           />
           {discount > 0 && (
@@ -42,13 +42,13 @@ export default function OfferCard({ offer, productName, productImage, productId 
       {/* Content */}
       <div className="flex-1 min-w-0 flex flex-col gap-2">
         <Link to={`/product/${productId}`}>
-          <h3 className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2 leading-snug hover:text-primary-700 transition-colors">
+          <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-slate-100 line-clamp-2 leading-snug hover:text-primary-700 dark:hover:text-primary-400 transition-colors">
             {productName}
           </h3>
         </Link>
 
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs sm:text-sm font-medium text-gray-700">{offer.store}</span>
+          <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-slate-300">{offer.store}</span>
           <RatingBadge rating={offer.storeRating} reviewsCount={offer.storeReviewsCount} />
         </div>
 
@@ -77,15 +77,15 @@ export default function OfferCard({ offer, productName, productImage, productId 
         <div className="flex items-end justify-between mt-auto pt-3">
           <div className="flex flex-col">
             {discount > 0 && (
-              <span className="text-xs text-gray-400 line-through">
+              <span className="text-xs text-gray-400 dark:text-slate-400 line-through">
                 R$ {offer.originalPrice!.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
               </span>
             )}
-            <span className="text-2xl font-extrabold text-primary-700 tracking-tight">
+            <span className="text-2xl font-extrabold text-primary-700 dark:text-primary-400 tracking-tight">
               R$ {offer.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </span>
             {discount > 0 && (
-              <span className="text-xs font-medium text-emerald-600">Economia de R$ {(offer.originalPrice! - offer.price).toLocaleString('pt-BR')}</span>
+              <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Economia de R$ {(offer.originalPrice! - offer.price).toLocaleString('pt-BR')}</span>
             )}
           </div>
 

@@ -16,7 +16,7 @@ const options: { value: SortOption; label: string }[] = [
 export default function SortSelect({ value, onChange }: SortSelectProps) {
   return (
     <div className="flex items-center gap-2">
-      <ArrowUpDown className="w-4 h-4 text-gray-400" />
+      <ArrowUpDown className="w-4 h-4 text-gray-400 dark:text-slate-500" />
       <div className="relative">
         <select
           value={value}
@@ -29,7 +29,7 @@ export default function SortSelect({ value, onChange }: SortSelectProps) {
             </option>
           ))}
         </select>
-        <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400">
+        <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-400 dark:text-slate-500">
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>

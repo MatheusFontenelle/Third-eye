@@ -34,9 +34,9 @@ export default function SearchBar({ variant = 'compact', initialValue = '' }: Se
     <form onSubmit={handleSubmit} className="w-full">
       <div
         className={[
-          'flex items-center gap-0 bg-white border rounded-2xl overflow-hidden transition-all duration-200',
+          'flex items-center gap-0 bg-white dark:bg-slate-800 border rounded-2xl overflow-hidden transition-all duration-200',
           'focus-within:ring-2 focus-within:ring-primary-500/30 focus-within:border-primary-400',
-          isHero ? 'border-gray-200 shadow-soft' : 'border-gray-200',
+          isHero ? 'border-gray-200 dark:border-slate-600 shadow-soft' : 'border-gray-200 dark:border-slate-600',
         ].join(' ')}
       >
         <div className="flex-1 min-w-0">
@@ -45,9 +45,9 @@ export default function SearchBar({ variant = 'compact', initialValue = '' }: Se
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar produtos, marcas, modelos..."
-            icon={<Search className="w-5 h-5" />}
+            icon={<Search className="w-5 h-5 dark:text-slate-400" />}
             className={[
-              'border-0 shadow-none focus:ring-0 focus:border-0 bg-transparent',
+              'border-0 shadow-none focus:ring-0 focus:border-0 bg-transparent dark:text-slate-100',
               isHero ? 'text-lg py-4 px-6' : 'text-sm py-2.5 px-4',
             ].join(' ')}
           />
@@ -67,4 +67,3 @@ export default function SearchBar({ variant = 'compact', initialValue = '' }: Se
     </form>
   );
 }
-

@@ -3,9 +3,6 @@ import { generateProductUrl } from '@/utils/storeUrls';
 
 // ─── Constants & Types ───────────────────────────────────────────────────────
 
-const today = new Date().toISOString().split('T')[0];
-const monthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-
 interface StoreConfig {
   name: string;
   rating: number;
