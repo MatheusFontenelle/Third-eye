@@ -19,6 +19,10 @@ export default function SearchPage() {
 
   const totalOffers = results?.products.reduce((sum, p) => sum + p.offers.length, 0) ?? 0;
 
+  const availableStores = results
+    ? [...new Set(results.products.flatMap((p) => p.offers.map((o) => o.store)))].sort()
+    : undefined;
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       {/* Header */}
@@ -65,7 +69,7 @@ export default function SearchPage() {
 
         <div className="flex flex-col lg:flex-row gap-6">
           {/* Filters */}
-          <Filters filters={filters} onChange={setFilters} />
+          <Filters filters={filters} onChange={setFilters} availableStores={availableStores} />
 
           {/* Results */}
           <div className="flex-1 min-w-0">
@@ -76,17 +80,19 @@ export default function SearchPage() {
             )}
             {!loading && !error && results && results.products.length > 0 && (
               <div className="space-y-4">
-                {results.products.map((product) =>
-                  product.offers.map((offer) => (
+                {results.products.map((product) => {
+                  const bestOffer = product.offers.reduce((best, o) =>
+                    o.price < best.price ? o : best
+                  , product.offers[0]);
+                  return (
                     <OfferCard
-                      key={offer.id}
-                      offer={offer}
+                      key={product.id}
+                      offer={bestOffer}
                       productName={product.name}
                       productImage={product.image}
-                      productId={product.id}
                     />
-                  ))
-                )}
+                  );
+                })}
               </div>
             )}
           </div>

@@ -31,6 +31,7 @@ model Product {
   gallery         String[]
   specs           Json
   description     String
+  searchText      String?
   rating          Float    @default(0)
   reviewsCount    Int      @default(0)
   createdAt       DateTime @default(now())
@@ -42,6 +43,7 @@ model Product {
   @@index([category])
   @@index([brand])
   @@index([name])
+  @@index([searchText])
   @@map("products")
 }
 
