@@ -4,17 +4,15 @@ import RatingBadge from './RatingBadge';
 import Badge from './ui/Badge';
 import Button from './ui/Button';
 import Card from './ui/Card';
-import { Link } from 'react-router-dom';
 import { Truck, Clock, ExternalLink, Package, Tag } from 'lucide-react';
 
 interface OfferCardProps {
   offer: Offer;
   productName: string;
   productImage: string;
-  productId: string;
 }
 
-export default function OfferCard({ offer, productName, productImage, productId }: OfferCardProps) {
+export default function OfferCard({ offer, productName, productImage }: OfferCardProps) {
   const discount = offer.originalPrice
     ? Math.round(((offer.originalPrice - offer.price) / offer.originalPrice) * 100)
     : 0;
@@ -23,7 +21,12 @@ export default function OfferCard({ offer, productName, productImage, productId 
     <Card hover className="flex flex-col sm:flex-row gap-4">
       {/* Image */}
       <div className="shrink-0 mx-auto sm:mx-0">
-        <Link to={`/product/${productId}`} className="block relative">
+        <a
+          href={safeUrl(offer.url, '')}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block relative"
+        >
           <img
             src={safeUrl(productImage, '')}
             alt={productName}
@@ -36,16 +39,20 @@ export default function OfferCard({ offer, productName, productImage, productId 
               -{discount}%
             </Badge>
           )}
-        </Link>
+        </a>
       </div>
 
       {/* Content */}
       <div className="flex-1 min-w-0 flex flex-col gap-2">
-        <Link to={`/product/${productId}`}>
+        <a
+          href={safeUrl(offer.url, '')}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-slate-100 line-clamp-2 leading-snug hover:text-primary-700 dark:hover:text-primary-400 transition-colors">
             {productName}
           </h3>
-        </Link>
+        </a>
 
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-slate-300">{offer.store}</span>
@@ -83,6 +90,9 @@ export default function OfferCard({ offer, productName, productImage, productId 
             )}
             <span className="text-2xl font-extrabold text-primary-700 dark:text-primary-400 tracking-tight">
               R$ {offer.price.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
+            </span>
+            <span className="text-xs font-semibold text-gray-500 dark:text-slate-400">
+              Preço final: R$ {(offer.price + offer.shipping).toLocaleString('pt-BR', { minimumFractionDigits: 2 })}
             </span>
             {discount > 0 && (
               <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">Economia de R$ {(offer.originalPrice! - offer.price).toLocaleString('pt-BR')}</span>

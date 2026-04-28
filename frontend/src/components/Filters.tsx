@@ -9,6 +9,7 @@ import { useState } from 'react';
 interface FiltersProps {
   filters: SearchFilters;
   onChange: (filters: SearchFilters) => void;
+  availableStores?: string[];
 }
 
 function CustomCheckbox({
@@ -44,9 +45,9 @@ function CustomCheckbox({
   );
 }
 
-export default function Filters({ filters, onChange }: FiltersProps) {
+export default function Filters({ filters, onChange, availableStores }: FiltersProps) {
   const brands = getBrands();
-  const stores = getStores();
+  const stores = availableStores ?? getStores();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   function toggleArrayValue<T>(arr: T[], value: T): T[] {
