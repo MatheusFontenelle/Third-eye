@@ -168,6 +168,14 @@ export default function HomePage() {
             <div className="max-w-xl mx-auto">
               <SearchBar variant="hero" />
             </div>
+            <div className="mt-4">
+              <button
+                onClick={() => navigate('/search')}
+                className="text-sm font-medium text-primary-700 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 underline underline-offset-4 transition-colors"
+              >
+                Explorar todos os produtos do catálogo →
+              </button>
+            </div>
 
             {/* Trending */}
             <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
