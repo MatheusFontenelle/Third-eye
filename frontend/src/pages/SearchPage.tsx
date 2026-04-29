@@ -90,8 +90,6 @@ export default function SearchPage() {
                       offer={bestOffer}
                       productName={product.name}
                       productImage={product.image}
-                      productId={product.id}
-                      offersCount={product.offers.length}
                     />
                   );
                 })}

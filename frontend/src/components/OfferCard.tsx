@@ -1,94 +1,62 @@
-import { Link } from 'react-router-dom';
 import { Offer } from '@/types';
 import { safeUrl } from '@/utils/validateUrl';
 import RatingBadge from './RatingBadge';
 import Badge from './ui/Badge';
 import Button from './ui/Button';
 import Card from './ui/Card';
-import { Truck, Clock, ExternalLink, Package, Tag, Store } from 'lucide-react';
+import { Truck, Clock, ExternalLink, Package, Tag } from 'lucide-react';
 
 interface OfferCardProps {
   offer: Offer;
   productName: string;
   productImage: string;
-  productId?: string;
-  offersCount?: number;
 }
 
-export default function OfferCard({ offer, productName, productImage, productId, offersCount }: OfferCardProps) {
+export default function OfferCard({ offer, productName, productImage }: OfferCardProps) {
   const discount = offer.originalPrice
     ? Math.round(((offer.originalPrice - offer.price) / offer.originalPrice) * 100)
     : 0;
-
-  const productHref = productId ? `/product/${productId}` : undefined;
 
   return (
     <Card hover className="flex flex-col sm:flex-row gap-4">
       {/* Image */}
       <div className="shrink-0 mx-auto sm:mx-0">
-        {productHref ? (
-          <Link to={productHref} className="block relative">
-            <img
-              src={safeUrl(productImage, '')}
-              alt={productName}
-              className="w-32 h-32 sm:w-36 sm:h-36 object-cover rounded-xl bg-gray-100 dark:bg-slate-700"
-              loading="lazy"
-            />
-            {discount > 0 && (
-              <Badge variant="success" size="sm" className="absolute -top-2 -left-2 shadow-sm">
-                <Tag className="w-3 h-3" />
-                -{discount}%
-              </Badge>
-            )}
-          </Link>
-        ) : (
-          <a
-            href={safeUrl(offer.url, '')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block relative"
-          >
-            <img
-              src={safeUrl(productImage, '')}
-              alt={productName}
-              className="w-32 h-32 sm:w-36 sm:h-36 object-cover rounded-xl bg-gray-100 dark:bg-slate-700"
-              loading="lazy"
-            />
-            {discount > 0 && (
-              <Badge variant="success" size="sm" className="absolute -top-2 -left-2 shadow-sm">
-                <Tag className="w-3 h-3" />
-                -{discount}%
-              </Badge>
-            )}
-          </a>
-        )}
+        <a
+          href={safeUrl(offer.url, '')}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block relative"
+        >
+          <img
+            src={safeUrl(productImage, '')}
+            alt={productName}
+            className="w-32 h-32 sm:w-36 sm:h-36 object-cover rounded-xl bg-gray-100 dark:bg-slate-700"
+            loading="lazy"
+          />
+          {discount > 0 && (
+            <Badge variant="success" size="sm" className="absolute -top-2 -left-2 shadow-sm">
+              <Tag className="w-3 h-3" />
+              -{discount}%
+            </Badge>
+          )}
+        </a>
       </div>
 
       {/* Content */}
       <div className="flex-1 min-w-0 flex flex-col gap-2">
-        {productHref ? (
-          <Link to={productHref}>
-            <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-slate-100 line-clamp-2 leading-snug hover:text-primary-700 dark:hover:text-primary-400 transition-colors">
-              {productName}
-            </h3>
-          </Link>
-        ) : (
-          <a href={safeUrl(offer.url, '')} target="_blank" rel="noopener noreferrer">
-            <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-slate-100 line-clamp-2 leading-snug hover:text-primary-700 dark:hover:text-primary-400 transition-colors">
-              {productName}
-            </h3>
-          </a>
-        )}
+        <a
+          href={safeUrl(offer.url, '')}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <h3 className="text-sm sm:text-base font-semibold text-gray-900 dark:text-slate-100 line-clamp-2 leading-snug hover:text-primary-700 dark:hover:text-primary-400 transition-colors">
+            {productName}
+          </h3>
+        </a>
 
         <div className="flex items-center gap-2 flex-wrap">
           <span className="text-xs sm:text-sm font-medium text-gray-700 dark:text-slate-300">{offer.store}</span>
           <RatingBadge rating={offer.storeRating} reviewsCount={offer.storeReviewsCount} />
-          {offersCount !== undefined && offersCount > 1 && (
-            <Badge variant="price" size="sm">
-              <Store className="w-3 h-3" />
-              {offersCount} lojas
-            </Badge>
-          )}
         </div>
 
         <div className="flex flex-wrap items-center gap-2 mt-1">
@@ -131,25 +99,16 @@ export default function OfferCard({ offer, productName, productImage, productId,
             )}
           </div>
 
-          <div className="flex items-center gap-2">
-            {productHref && offersCount !== undefined && offersCount > 1 && (
-              <Link to={productHref}>
-                <Button variant="secondary" size="md">
-                  Ver todas as ofertas
-                </Button>
-              </Link>
-            )}
-            <Button
-              size="md"
-              rightIcon={<ExternalLink className="w-3.5 h-3.5" />}
-              onClick={() => {
-                const url = safeUrl(offer.url, '');
-                if (url) window.open(url, '_blank', 'noopener,noreferrer');
-              }}
-            >
-              Ver oferta
-            </Button>
-          </div>
+          <Button
+            size="md"
+            rightIcon={<ExternalLink className="w-3.5 h-3.5" />}
+            onClick={() => {
+              const url = safeUrl(offer.url, '');
+              if (url) window.open(url, '_blank', 'noopener,noreferrer');
+            }}
+          >
+            Ver oferta
+          </Button>
         </div>
       </div>
     </Card>
